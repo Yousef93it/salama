@@ -499,7 +499,7 @@ class _SignUpPageState extends State<SignUpPage> {
           elevation: 3,
         ),
         child: Text(
-          'تسجيل',
+          'أنشاء حساب',
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
@@ -524,7 +524,11 @@ class _SignUpPageState extends State<SignUpPage> {
             // Add Facebook login action here
             print("Facebook login clicked!");
           },
-          child: _buildSocialButton('Facebook', Color(0xFF87CEEB)),
+          child: _buildSocialButton(
+              'Facebook',
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 0, 0, 0),
+              'assets/facebook.png'), // Use an appropriate IconData
         ),
         SizedBox(width: 20),
         GestureDetector(
@@ -532,13 +536,18 @@ class _SignUpPageState extends State<SignUpPage> {
             // Add Google login action here
             print("Google login clicked!");
           },
-          child: _buildSocialButton('Google', Color(0xFF87CEEB)),
+          child: _buildSocialButton(
+              'Google',
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 0, 0, 0),
+              "assets/google.png"),
         ),
       ],
     );
   }
 
-  Widget _buildSocialButton(String text, Color color) {
+  Widget _buildSocialButton(
+      String text, Color color, Color fontColor, String iconPath) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
@@ -548,11 +557,11 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.circle, size: 18, color: Colors.white),
+          Image.asset(iconPath, height: 18, width: 18),
           SizedBox(width: 5),
           Text(
             text,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: fontColor),
           ),
         ],
       ),
