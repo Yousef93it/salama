@@ -13,6 +13,7 @@ class SalamaApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: SignUpPage(),
       home: LogInPage(),
+      //home: HomePage(),
     );
   }
 }

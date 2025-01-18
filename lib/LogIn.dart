@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testflutterproject/Home.dart';
 
 void main() => runApp(LogIn());
 
@@ -54,7 +55,8 @@ class _LogInPageState extends State<LogInPage> {
                 ),
                 SizedBox(height: 10),
                 _buildTextField('رقم الهاتف او البريد الالكتروني',
-                    TextInputType.emailAddress, TextAlign.right),
+                    TextInputType.emailAddress, TextAlign.right,
+                    controller: _emailController),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -73,9 +75,9 @@ class _LogInPageState extends State<LogInPage> {
                 SizedBox(height: 10),
                 _buildTextField('كلمة المرور', TextInputType.visiblePassword,
                     TextAlign.right,
-                    isPassword: true),
+                    isPassword: true, controller: _passwordController),
                 SizedBox(height: 100),
-                _buildSignUpButton(),
+                _buildLogInButton(context),
                 SizedBox(height: 135),
                 _buildSocialLoginText(),
                 _buildSocialButtons(),
@@ -164,8 +166,9 @@ class _LogInPageState extends State<LogInPage> {
 
   Widget _buildTextField(
       String hintText, TextInputType inputType, TextAlign textAlign,
-      {bool isPassword = false}) {
+      {bool isPassword = false, TextEditingController? controller}) {
     return TextFormField(
+      controller: controller,
       keyboardType: inputType,
       obscureText: isPassword,
       textAlign: textAlign,
@@ -194,13 +197,16 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildLogInButton(BuildContext context) {
     return Center(
       child: ElevatedButton(
         onPressed: () {
           print("Sign Up button pressed!");
           if (_formKey.currentState?.validate() ?? false) {
-            // Add your action here
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
             print("تسجيل button clicked!");
           }
         },
