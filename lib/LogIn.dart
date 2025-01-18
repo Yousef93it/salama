@@ -27,17 +27,17 @@ class _LogInPageState extends State<LogInPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 _buildHeader(),
                 SizedBox(height: 30),
                 _buildWelcomeText(),
-                SizedBox(height: 15),
+                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -52,10 +52,10 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 10),
                 _buildTextField('رقم الهاتف او البريد الالكتروني',
                     TextInputType.emailAddress, TextAlign.right),
-                SizedBox(height: 15),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -70,13 +70,13 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 10),
                 _buildTextField('كلمة المرور', TextInputType.visiblePassword,
                     TextAlign.right,
                     isPassword: true),
                 SizedBox(height: 100),
                 _buildSignUpButton(),
-                SizedBox(height: 200),
+                SizedBox(height: 135),
                 _buildSocialLoginText(),
                 _buildSocialButtons(),
                 // Add other widgets here
@@ -181,7 +181,7 @@ class _LogInPageState extends State<LogInPage> {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Color(0xFF87CEEB), width: 2),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         suffixIcon:
             isPassword ? Icon(Icons.visibility_off, color: Colors.grey) : null,
       ),
@@ -273,9 +273,22 @@ Widget _buildSocialButton(
 
 Widget _buildSocialLoginText() {
   return Center(
-    child: Text(
-      'أو قم بتسجيل الدخول باستخدام',
-      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          child: Divider(color: const Color(0xFFF3F3FA)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          child: Text(
+            'أو قم بتسجيل الدخول باستخدام',
+            style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+          ),
+        ),
+        Expanded(
+          child: Divider(color: const Color(0xFFF3F3FA)),
+        ),
+      ],
     ),
   );
 }

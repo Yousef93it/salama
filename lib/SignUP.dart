@@ -1,239 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class SignUpPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               SizedBox(height: 50),
-//               Align(
-//                 alignment: Alignment.topRight,
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.end,
-//                   children: [
-//                     Text(
-//                       'سلامة',
-//                       style: TextStyle(
-//                         fontSize: 28,
-//                         fontWeight: FontWeight.bold,
-//                         color: Color(0xFF87CEEB),
-//                       ),
-//                     ),
-//                     Text(
-//                       'أمانك نحو وطن آمن',
-//                       style: TextStyle(
-//                         fontSize: 14,
-//                         color: Color(0xFF87CEEB),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 30),
-//               Center(
-//                 child: Column(
-//                   children: [
-//                     Text(
-//                       'أهلاً بك في تطبيق سلامة',
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold,
-//                         color: Colors.black,
-//                       ),
-//                     ),
-//                     SizedBox(height: 10),
-//                     Text(
-//                       'نساعد جميعاً في حماية سلامتنا من مخالفات العرب عبر التطبيق لدينا',
-//                       style: TextStyle(
-//                         fontSize: 14,
-//                         color: Colors.grey[700],
-
-//                         //textAlign: TextAlign.center,
-//                       ),
-//                       textAlign: TextAlign.center,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 30),
-//               Row(
-//                 children: [
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.end,
-//                       children: [
-//                         Text(
-//                           'الاسم الأول',
-//                           textAlign: TextAlign.right,
-//                           style: TextStyle(
-//                             fontSize: 14,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         _buildTextField(
-//                             'الاسم الأول', TextInputType.text, TextAlign.right),
-//                       ],
-//                     ),
-//                   ),
-//                   SizedBox(width: 10),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.end,
-//                       children: [
-//                         Text(
-//                           'اسم العائلة',
-//                           textAlign: TextAlign.right,
-//                           style: TextStyle(
-//                             fontSize: 14,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         _buildTextField(
-//                             'اسم العائلة', TextInputType.text, TextAlign.right),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: 15),
-//               _buildTextField('البريد الإلكتروني', TextInputType.emailAddress,
-//                   TextAlign.right),
-//               SizedBox(height: 15),
-//               _buildTextField(
-//                   'رقم الهاتف', TextInputType.phone, TextAlign.right),
-//               SizedBox(height: 15),
-//               _buildTextField(
-//                   'كلمة المرور', TextInputType.visiblePassword, TextAlign.right,
-//                   isPassword: true),
-//               SizedBox(height: 25),
-//               Center(
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     // Add your action here
-
-//                     print("تسجيل button clicked!");
-//                   },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Color(0xFF87CEEB),
-//                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(25),
-//                     ),
-//                     elevation: 3,
-//                   ),
-//                   child: Text(
-//                     'تسجيل',
-//                     style: TextStyle(fontSize: 18, color: Colors.white),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 20),
-//               Center(
-//                 child: Text(
-//                   'أو سجل الدخول باستخدام',
-//                   style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-//                 ),
-//               ),
-//               SizedBox(height: 15),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () {
-//                       //i need to dd feacbook login action here
-//                       print("Facebook login clicked!");
-//                     },
-//                     child: _buildSocialButton(
-//                       'Facebook',
-//                       Color(0xFF87CEEB),
-//                     ),
-//                   ),
-//                   SizedBox(width: 20),
-//                   GestureDetector(
-//                     onTap: () {
-//                       //  i need to dd Google login action here
-//                       print("Google login clicked!");
-//                     },
-//                     child: _buildSocialButton(
-//                       'Google',
-//                       Color(0xFF87CEEB),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: 30),
-//               Center(
-//                 child: TextButton(
-//                   onPressed: () {
-//                     // Add navigation to login page here
-//                     print("Navigate to login page!");
-//                   },
-//                   child: Text(
-//                     'لديك حساب بالفعل؟ تسجيل الدخول',
-//                     style: TextStyle(color: Colors.grey[700]),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTextField(
-//       String hintText, TextInputType inputType, TextAlign textAlign,
-//       {bool isPassword = false}) {
-//     return TextField(
-//       keyboardType: inputType,
-//       obscureText: isPassword,
-//       textAlign: textAlign,
-//       decoration: InputDecoration(
-//         hintText: hintText,
-//         filled: true,
-//         fillColor: Color(0xFFF0F0F0),
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide.none,
-//         ),
-//         focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide(color: Color(0xFF87CEEB), width: 2),
-//         ),
-//         contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-//         suffixIcon:
-//             isPassword ? Icon(Icons.visibility_off, color: Colors.grey) : null,
-//       ),
-//     );
-//   }
-
-//   Widget _buildSocialButton(String text, Color color) {
-//     return Container(
-//       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//       decoration: BoxDecoration(
-//         color: color,
-//         borderRadius: BorderRadius.circular(10),
-//       ),
-//       child: Row(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           Icon(Icons.circle, size: 18, color: Colors.white),
-//           SizedBox(width: 5),
-//           Text(
-//             text,
-//             style: TextStyle(color: Colors.white),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -256,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 _buildHeader(),
                 SizedBox(height: 30),
                 _buildWelcomeText(),
@@ -277,6 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
                 _buildTextField('البريد الإلكتروني', TextInputType.emailAddress,
                     TextAlign.right),
                 SizedBox(height: 15),
@@ -294,6 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
                 _buildTextField(
                     'رقم الهاتف', TextInputType.phone, TextAlign.right),
                 SizedBox(height: 15),
@@ -311,6 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
                 _buildTextField('كلمة المرور', TextInputType.visiblePassword,
                     TextAlign.right,
                     isPassword: true),
@@ -320,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 _buildSocialLoginText(),
                 SizedBox(height: 15),
                 _buildSocialButtons(),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 _buildLoginTextButton(),
               ],
             ),
@@ -420,6 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 10),
               _buildTextField(
                   'اسم العائلة', TextInputType.text, TextAlign.right),
             ],
@@ -439,6 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 10),
               _buildTextField(
                   'الاسم الأول', TextInputType.text, TextAlign.right),
             ],
@@ -508,9 +277,22 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildSocialLoginText() {
     return Center(
-      child: Text(
-        'أو سجل الدخول باستخدام',
-        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Divider(color: const Color(0xFFF3F3FA)),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Text(
+              'أو قم بتسجيل الدخول باستخدام',
+              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+            ),
+          ),
+          Expanded(
+            child: Divider(color: const Color(0xFFF3F3FA)),
+          ),
+        ],
       ),
     );
   }
