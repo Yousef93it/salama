@@ -41,7 +41,7 @@ class Location extends StatelessWidget {
               _getLocation(context),
               SizedBox(height: 20),
               Text(
-                'أو قم بتحديد الموقع بشكل يدوي',
+                'معلومات اضافية',
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: "Cairo",
@@ -49,7 +49,7 @@ class Location extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Container(
                 width: 350,
                 height: 50, // Keeps enough height to accommodate multiple lines
