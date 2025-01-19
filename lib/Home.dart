@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testflutterproject/LogIn.dart';
+import 'package:testflutterproject/ReportIssue.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -71,7 +72,7 @@ class HomePage extends StatelessWidget {
           print("Sign Up button pressed!");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => ReportIssue()),
           );
           print("تسجيل button clicked!");
         },
