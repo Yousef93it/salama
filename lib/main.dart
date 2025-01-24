@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:testflutterproject/SignUP.dart';
-import 'package:testflutterproject/ReportIssue.dart';
-import 'package:testflutterproject/LogIn.dart';
-import 'package:testflutterproject/soon.dart';
+import 'package:salama/SignUP.dart';
+import 'package:salama/ReportIssue.dart';
+import 'package:salama/LogIn.dart';
+import 'package:salama/soon.dart';
 
 void main() {
   runApp(SalamaApp());

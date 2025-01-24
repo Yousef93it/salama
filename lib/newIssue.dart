@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testflutterproject/soon.dart';
-import 'package:testflutterproject/location.dart';
+import 'package:salama/soon.dart';
+import 'package:salama/location.dart';
 
 class NewIssue extends StatefulWidget {
   @override

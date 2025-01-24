@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testflutterproject/LogIn.dart';
-import 'package:testflutterproject/ReportIssue.dart';
+import 'package:salama/LogIn.dart';
+import 'package:salama/ReportIssue.dart';
 
 class HomePage extends StatelessWidget {
   @override

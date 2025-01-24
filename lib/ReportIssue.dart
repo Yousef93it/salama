@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testflutterproject/newIssue.dart';
-import 'package:testflutterproject/soon.dart';
+import 'package:salama/newIssue.dart';
+import 'package:salama/soon.dart';
 
 class ReportIssue extends StatefulWidget {
   @override

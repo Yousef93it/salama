@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testflutterproject/Home.dart';
+import 'package:salama/Home.dart';
 
 void main() => runApp(LogIn());
 

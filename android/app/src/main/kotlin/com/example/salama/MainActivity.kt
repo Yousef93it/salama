@@ -1,4 +1,4 @@
-package com.example.testflutterproject
+package com.example.salama
 
 import io.flutter.embedding.android.FlutterActivity
 
