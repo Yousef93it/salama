@@ -12,193 +12,27 @@ class Location extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    width: 60, // Adjust the width as needed
-                    height: 60, // Adjust the height as needed
-                  ),
-                  SizedBox(
-                      width: 220), // Add horizontal space between the images
-                  Image.asset(
-                    'assets/logoText.png',
-                    width: 80, // Adjust the width as needed
-                    height: 80, // Adjust the height as needed
-                  ),
-                ],
-              ),
-              Text(
-                ' قم بتحديد الموقع بشكل تلقائي',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "Cairo",
-                  fontSize: 24,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+              _buildAppLogo(),
               SizedBox(height: 20),
-              _getLocation(context),
+              _buildTitle(),
               SizedBox(height: 20),
-              Text(
-                'معلومات اضافية',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "Cairo",
-                  fontSize: 24,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+              _buildGetLocationButton(context),
               SizedBox(height: 20),
-              Container(
-                width: 350,
-                height: 50, // Keeps enough height to accommodate multiple lines
-                decoration: BoxDecoration(
-                  color: Color(0xFFDDEEF9), // Background color
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                  border: Border.all(
-                    color: Color(0xFFC3E8FF), // Border color and width
-                    width: 1,
-                  ),
-                ),
-                child: TextField(
-                  textDirection:
-                      TextDirection.rtl, // Right-to-left text direction
-                  textAlign: TextAlign.right, // Align text to the right
-                  maxLines: null, // Allows the text to wrap into multiple lines
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12), // Padding for text field content
-                    hintText: ' المدينة',
-                    hintStyle:
-                        TextStyle(color: Color(0xFF9E9E9E)), // Hint text color
-                    border: InputBorder.none, // Remove default underline
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Cairo",
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
+              _buildAdditionalInfoTitle(),
               SizedBox(height: 20),
-              Container(
-                width: 350,
-                height: 50, // Keeps enough height to accommodate multiple lines
-                decoration: BoxDecoration(
-                  color: Color(0xFFDDEEF9), // Background color
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                  border: Border.all(
-                    color: Color(0xFFC3E8FF), // Border color and width
-                    width: 1,
-                  ),
-                ),
-                child: TextField(
-                  textDirection:
-                      TextDirection.rtl, // Right-to-left text direction
-                  textAlign: TextAlign.right, // Align text to the right
-                  maxLines: null, // Allows the text to wrap into multiple lines
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12), // Padding for text field content
-                    hintText: ' المنطقة',
-                    hintStyle:
-                        TextStyle(color: Color(0xFF9E9E9E)), // Hint text color
-                    border: InputBorder.none, // Remove default underline
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Cairo",
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
+              _buildCityField(),
               SizedBox(height: 20),
-              Container(
-                width: 350,
-                height: 50, // Keeps enough height to accommodate multiple lines
-                decoration: BoxDecoration(
-                  color: Color(0xFFDDEEF9), // Background color
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                  border: Border.all(
-                    color: Color(0xFFC3E8FF), // Border color and width
-                    width: 1,
-                  ),
-                ),
-                child: TextField(
-                  textDirection:
-                      TextDirection.rtl, // Right-to-left text direction
-                  textAlign: TextAlign.right, // Align text to the right
-                  maxLines: null, // Allows the text to wrap into multiple lines
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12), // Padding for text field content
-                    hintText: ' الحي',
-                    hintStyle:
-                        TextStyle(color: Color(0xFF9E9E9E)), // Hint text color
-                    border: InputBorder.none, // Remove default underline
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Cairo",
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
+              _buildAreaField(),
               SizedBox(height: 20),
-              Container(
-                width: 350,
-                height:
-                    150, // Keeps enough height to accommodate multiple lines
-                decoration: BoxDecoration(
-                  color: Color(0xFFDDEEF9), // Background color
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                  border: Border.all(
-                    color: Color(0xFFC3E8FF), // Border color and width
-                    width: 1,
-                  ),
-                ),
-                child: TextField(
-                  textDirection:
-                      TextDirection.rtl, // Right-to-left text direction
-                  textAlign: TextAlign.right, // Align text to the right
-                  maxLines: null, // Allows the text to wrap into multiple lines
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12), // Padding for text field content
-                    hintText: ' الموقع بالتفصيل',
-                    hintStyle:
-                        TextStyle(color: Color(0xFF9E9E9E)), // Hint text color
-                    border: InputBorder.none, // Remove default underline
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Cairo",
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
+              _buildNeighborhoodField(),
               SizedBox(height: 20),
-              _locationSubmit(context),
-              SizedBox(height: 130),
-              Text(
-                'احذر من لمس المخلفات أو الاقتراب منها كثيراً فهذا يعرضك للخطر',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0XFF3A3A3A),
-                  fontFamily: "Cairo",
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+              _buildDetailedLocationField(),
+              SizedBox(height: 20),
+              _buildSubmitButton(context),
+              SizedBox(height: 40),
+              _buildWarningText(),
+              Spacer(),
+              _buildBackButton(context),
             ],
           ),
         ),
@@ -206,61 +40,208 @@ class Location extends StatelessWidget {
     );
   }
 
-  Widget _getLocation(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          print("_getLocation button pressed!");
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF888888),
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 120),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
+  Widget _buildAppLogo() {
+    return Row(
+      children: [
+        Image.asset(
+          'assets/logo.png',
+          width: 60,
+          height: 60,
         ),
-        child: Text(
-          'تحديدالموقع',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Cairo",
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-          ),
+        Spacer(),
+        Image.asset(
+          'assets/logoText.png',
+          width: 80,
+          height: 80,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return Text(
+      'قم بتحديد الموقع بشكل تلقائي',
+      style: TextStyle(
+        color: Colors.black,
+        fontFamily: "Cairo",
+        fontSize: 24,
+        fontWeight: FontWeight.normal,
+      ),
+    );
+  }
+
+  Widget _buildGetLocationButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        print("Get Location button pressed!");
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF888888),
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Text(
+        'تحديد الموقع',
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: "Cairo",
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
   }
 
-  Widget _locationSubmit(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          print("Sign Out button pressed!");
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Location()),
-          );
-          print("تسجيل button clicked!");
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFFF6347),
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 150),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          elevation: 3,
+  Widget _buildAdditionalInfoTitle() {
+    return Text(
+      'معلومات اضافية',
+      style: TextStyle(
+        color: Colors.black,
+        fontFamily: "Cairo",
+        fontSize: 24,
+        fontWeight: FontWeight.normal,
+      ),
+    );
+  }
+
+  Widget _buildCityField() {
+    return _buildTextField(hintText: ' المدينة');
+  }
+
+  Widget _buildAreaField() {
+    return _buildTextField(hintText: ' المنطقة');
+  }
+
+  Widget _buildNeighborhoodField() {
+    return _buildTextField(hintText: ' الحي');
+  }
+
+  Widget _buildDetailedLocationField() {
+    return Container(
+      width: 350,
+      height: 150,
+      decoration: BoxDecoration(
+        color: Color(0xFFDDEEF9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Color(0xFFC3E8FF),
+          width: 1,
         ),
-        child: Text(
-          ' تاكيد',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Cairo",
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-          ),
+      ),
+      child: TextField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        maxLines: null,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          hintText: ' الموقع بالتفصيل',
+          hintStyle: TextStyle(color: Color(0xFF9E9E9E)),
+          border: InputBorder.none,
+        ),
+        style: TextStyle(
+          color: Colors.black, // Changed to black for better visibility
+          fontFamily: "Cairo",
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
   }
+
+  Widget _buildTextField({required String hintText}) {
+    return Container(
+      width: 350,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Color(0xFFDDEEF9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Color(0xFFC3E8FF),
+          width: 1,
+        ),
+      ),
+      child: TextField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        maxLines: null,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          hintText: hintText,
+          hintStyle: TextStyle(color: Color(0xFF9E9E9E)),
+          border: InputBorder.none,
+        ),
+        style: TextStyle(
+          color: Colors.black, // Changed to black for better visibility
+          fontFamily: "Cairo",
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSubmitButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        print("Submit button pressed!");
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFFFF6347),
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 150),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        elevation: 3,
+      ),
+      child: Text(
+        'تأكيد',
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: "Cairo",
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWarningText() {
+    return Text(
+      'احذر من لمس المخلفات أو الاقتراب منها كثيراً فهذا يعرضك للخطر',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Color(0XFF3A3A3A),
+        fontFamily: "Cairo",
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+      ),
+    );
+  }
+}
+
+Widget _buildBackButton(BuildContext context) {
+  return Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'رجوع',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "Cairo",
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.arrow_right, color: Colors.white, size: 50),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    ),
+  );
 }
