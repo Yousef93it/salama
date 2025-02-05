@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salama/newIssue.dart';
 import 'package:salama/soon.dart';
+import 'package:salama/Home.dart';
 
 class ReportIssue extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class ReportIssue extends StatefulWidget {
 }
 
 class _ReportIssueState extends State<ReportIssue> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _currentPage = 0;
   final PageController _pageController = PageController();
 
@@ -29,9 +30,9 @@ class _ReportIssueState extends State<ReportIssue> {
               SizedBox(height: 50),
               _buildReportButton(context),
               SizedBox(height: 20),
-              _buildDataButton(context),
+              // _buildDataButton(context),
               SizedBox(height: 20),
-              _buildMoreButton(context),
+              //_buildMoreButton(context),
               Spacer(),
               _buildBackButton(context),
             ],
@@ -201,7 +202,10 @@ class _ReportIssueState extends State<ReportIssue> {
           IconButton(
             icon: Icon(Icons.arrow_right, color: Colors.white, size: 50),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
             },
           ),
         ],

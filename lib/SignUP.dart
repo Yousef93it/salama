@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:salama/LogIn.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -20,75 +22,18 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
                 _buildHeader(),
-                SizedBox(height: 30),
                 _buildWelcomeText(),
-                SizedBox(height: 30),
                 _buildNameFields(),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'البريد الإلكتروني',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontFamily: "Cairo",
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                _buildTextField('البريد الإلكتروني', TextInputType.emailAddress,
-                    TextAlign.right),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'رقم الهاتف',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontFamily: "Cairo",
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                _buildTextField(
-                    'رقم الهاتف', TextInputType.phone, TextAlign.right),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'كلمة المرور',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontFamily: "Cairo",
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                _buildTextField('كلمة المرور', TextInputType.visiblePassword,
-                    TextAlign.right,
+                _buildInputField(
+                    'البريد الإلكتروني', TextInputType.emailAddress),
+                _buildInputField('رقم الهاتف', TextInputType.phone),
+                _buildInputField('كلمة المرور', TextInputType.visiblePassword,
                     isPassword: true),
-                SizedBox(height: 25),
                 _buildSignUpButton(),
-                SizedBox(height: 20),
                 _buildSocialLoginText(),
-                SizedBox(height: 15),
                 _buildSocialButtons(),
-                SizedBox(height: 10),
-                _buildLoginTextButton(),
+                _buildNewAccount(),
               ],
             ),
           ),
@@ -101,16 +46,14 @@ class _SignUpPageState extends State<SignUpPage> {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: const EdgeInsets.only(
-            top: 10.0), // Adjust the top padding as needed
+        padding: const EdgeInsets.only(top: 25.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               'assets/logo.png',
-              width: 100, // Adjust the width as needed
-              height: 100, // Adjust the height as needed
+              width: 50,
+              height: 50,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -123,16 +66,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF87CEEB),
                   ),
-                  textAlign: TextAlign.right,
                 ),
                 Text(
-                  'معا نحو وطن آمن',
+                  'معًا نحو وطن آمن',
                   style: TextStyle(
                     fontFamily: "Cairo",
                     fontSize: 14,
                     color: Color(0xFF87CEEB),
                   ),
-                  textAlign: TextAlign.right,
                 ),
               ],
             ),
@@ -142,28 +83,29 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  TextStyle _headerTextStyle(double fontSize) {
+    return TextStyle(
+      fontFamily: "Cairo",
+      fontSize: fontSize,
+      color: Color(0xFF87CEEB),
+      fontWeight: fontSize == 28 ? FontWeight.bold : FontWeight.normal,
+    );
+  }
+
   Widget _buildWelcomeText() {
-    return Align(
-      alignment: Alignment.topRight,
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
             'أهلاً بك في تطبيق سلامة',
-            style: TextStyle(
-              fontFamily: "Cairo",
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Color(0XFF67697A),
-            ),
+            style: _welcomeTextStyle(28),
+            textAlign: TextAlign.right,
           ),
           Text(
             'ساهم معنا في حماية مجتمعنا من مخلفات الحرب عبر الإبلاغ عنها',
-            style: TextStyle(
-              fontFamily: "Cairo",
-              fontSize: 14,
-              color: Color(0XFF67697A),
-            ),
+            style: _welcomeTextStyle(14),
             textAlign: TextAlign.right,
           ),
         ],
@@ -171,59 +113,70 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildNameFields() {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'اسم العائلة',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontFamily: "Cairo",
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              _buildTextField(
-                  'اسم العائلة', TextInputType.text, TextAlign.right),
-            ],
-          ),
-        ),
-        SizedBox(width: 15),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'الاسم الأول',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontFamily: "Cairo",
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              _buildTextField(
-                  'الاسم الأول', TextInputType.text, TextAlign.right),
-            ],
-          ),
-        ),
-      ],
+  TextStyle _welcomeTextStyle(double fontSize) {
+    return TextStyle(
+      fontFamily: "Cairo",
+      fontSize: fontSize,
+      color: Color(0XFF67697A),
+      fontWeight: fontSize == 28 ? FontWeight.bold : FontWeight.normal,
     );
   }
 
-  Widget _buildTextField(
-      String hintText, TextInputType inputType, TextAlign textAlign,
+  Widget _buildNameFields() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Row(
+        children: [
+          _buildNameField('الاسم الأول'),
+          SizedBox(width: 15),
+          _buildNameField('اسم العائلة'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNameField(String label) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(label, style: _labelTextStyle()),
+          SizedBox(height: 10),
+          _buildTextField(label, TextInputType.text),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputField(String label, TextInputType inputType,
+      {bool isPassword = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(label, style: _labelTextStyle()),
+          SizedBox(height: 10),
+          _buildTextField(label, inputType, isPassword: isPassword),
+        ],
+      ),
+    );
+  }
+
+  TextStyle _labelTextStyle() {
+    return TextStyle(
+      fontFamily: "Cairo",
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  Widget _buildTextField(String hintText, TextInputType inputType,
       {bool isPassword = false}) {
     return TextFormField(
       keyboardType: inputType,
       obscureText: isPassword,
-      textAlign: textAlign,
+      textAlign: TextAlign.right,
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,
@@ -240,128 +193,156 @@ class _SignUpPageState extends State<SignUpPage> {
         suffixIcon:
             isPassword ? Icon(Icons.visibility_off, color: Colors.grey) : null,
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'هذا الحقل مطلوب';
-        }
-        return null;
-      },
+      validator: (value) => value?.isEmpty ?? true ? 'هذا الحقل مطلوب' : null,
+    );
+  }
+
+  Widget _buildNewAccount() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'لديك حساب بالفعل؟ ',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'تسجيل الدخول',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors
+                          .blue, // Change color to blue to indicate a link
+                      decoration:
+                          TextDecoration.underline, // Underline the text
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => LogInApp(),
+                          ),
+                        );
+                      },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSignUpButton() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          print("Sign Up button pressed!"); // Added print statement
-          if (_formKey.currentState?.validate() ?? false) {
-            // Add your action here
-            print("تسجيل button clicked!");
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF87CEEB),
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
+    return Padding(
+      padding: const EdgeInsets.only(top: 25.0),
+      child: Center(
+        child: ElevatedButton(
+          onPressed: _onSignUpPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF87CEEB),
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            elevation: 3,
           ),
-          elevation: 3,
-        ),
-        child: Text(
-          'أنشاء حساب',
-          style: TextStyle(fontSize: 18, color: Colors.white),
+          child: Text('أنشاء حساب',
+              style: TextStyle(fontSize: 18, color: Colors.white)),
         ),
       ),
     );
   }
 
+  void _onSignUpPressed() {
+    if (_formKey.currentState?.validate() ?? false) {
+      print("تسجيل button clicked!");
+    }
+  }
+
   Widget _buildSocialLoginText() {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
       child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Divider(color: const Color(0xFFF3F3FA)),
-          ),
+        children: [
+          Expanded(child: Divider(color: Color(0xFFF3F3FA))),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Text(
-              'أو قم بتسجيل الدخول باستخدام',
-              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-            ),
+            child: Text('أو قم بتسجيل الدخول باستخدام',
+                style: TextStyle(fontSize: 14, color: Colors.grey[700])),
           ),
-          Expanded(
-            child: Divider(color: const Color(0xFFF3F3FA)),
-          ),
+          Expanded(child: Divider(color: Color(0xFFF3F3FA))),
         ],
       ),
     );
   }
 
   Widget _buildSocialButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            // Add Facebook login action here
-            print("Facebook login clicked!");
-          },
-          child: _buildSocialButton(
-              'Facebook',
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 0, 0, 0),
-              'assets/facebook.png'), // Use an appropriate IconData
-        ),
-        SizedBox(width: 20),
-        GestureDetector(
-          onTap: () {
-            // Add Google login action here
-            print("Google login clicked!");
-          },
-          child: _buildSocialButton(
-              'Google',
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 0, 0, 0),
-              "assets/google.png"),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSocialButton(
-      String text, Color color, Color fontColor, String iconPath) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 15.0),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(iconPath, height: 18, width: 18),
-          SizedBox(width: 5),
-          Text(
-            text,
-            style: TextStyle(color: fontColor),
-          ),
+          _buildSocialButton(
+              'Facebook', 'assets/facebook.png', _onFacebookLogin),
+          SizedBox(width: 20),
+          _buildSocialButton('Google', 'assets/google.png', _onGoogleLogin),
         ],
       ),
     );
   }
 
-  Widget _buildLoginTextButton() {
-    return Center(
-      child: TextButton(
-        onPressed: () {
-          // Add navigation to login page here
-          print("Navigate to login page!");
-        },
-        child: Text(
-          'لديك حساب بالفعل؟ تسجيل الدخول',
-          style: TextStyle(color: Colors.grey[700]),
+  Widget _buildSocialButton(String text, String iconPath, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(iconPath, height: 18, width: 18),
+            SizedBox(width: 5),
+            Text(text, style: TextStyle(color: Colors.black)),
+          ],
         ),
       ),
     );
+  }
+
+  void _onFacebookLogin() {
+    print("Facebook login clicked!");
+  }
+
+  void _onGoogleLogin() {
+    print("Google login clicked!");
+  }
+
+  Widget _buildLoginTextButton() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Center(
+        child: TextButton(
+          onPressed: _onLoginPressed,
+          child: Text('لديك حساب بالفعل؟ تسجيل الدخول',
+              style: TextStyle(color: Colors.grey[700])),
+        ),
+      ),
+    );
+  }
+
+  void _onLoginPressed() {
+    print("Navigate to login page!");
   }
 }

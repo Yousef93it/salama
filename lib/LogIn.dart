@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:salama/Home.dart';
+import 'package:salama/SignUP.dart';
 
 void main() => runApp(LogInApp());
 
@@ -53,6 +55,8 @@ class _LogInPageState extends State<LogInPage> {
                 ),
                 SizedBox(height: 100),
                 _buildLogInButton(context),
+                SizedBox(height: 20),
+                _buildNewAccount(),
                 SizedBox(height: 135),
                 _buildSocialLoginText(),
                 _buildSocialButtons(),
@@ -68,14 +72,14 @@ class _LogInPageState extends State<LogInPage> {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 25.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'assets/logo.png',
-              width: 100,
-              height: 100,
+              width: 50,
+              height: 50,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -122,6 +126,7 @@ class _LogInPageState extends State<LogInPage> {
           ),
           Text(
             'ساهم معنا في حماية مجتمعنا من مخلفات الحرب عبر الإبلاغ عنها',
+            textAlign: TextAlign.right,
             style: TextStyle(
               fontFamily: "Cairo",
               fontSize: 14,
@@ -224,6 +229,51 @@ class _LogInPageState extends State<LogInPage> {
             ),
           ),
           Expanded(child: Divider(color: Color(0xFFF3F3FA))),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNewAccount() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'ليس لديك حساب؟ ',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'سجل الآن',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors
+                          .blue, // Change color to blue to indicate a link
+                      decoration:
+                          TextDecoration.underline, // Underline the text
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SignUpPage(),
+                          ),
+                        );
+                      },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

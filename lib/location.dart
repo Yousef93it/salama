@@ -1,35 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:salama/uploadPhoto.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Location extends StatelessWidget {
+  // Constants for colors, fonts, and sizes
+  static const Color backgroundColor = Color(0XFF71BAD1);
+  static const Color buttonColor = Color(0xFF888888);
+  static const Color submitButtonColor = Color(0xFFFF6347);
+  static const Color textFieldColor = Color(0xFFDDEEF9);
+  static const Color borderColor = Color(0xFFC3E8FF);
+  static const Color hintTextColor = Color(0xFF9E9E9E);
+  static const Color warningTextColor = Color(0XFF3A3A3A);
+  static const String fontFamily = "Cairo";
+  static const double horizontalPadding = 20.0;
+  static const double spacingSmall = 20.0;
+  static const double spacingMedium = 40.0;
+  static const double logoSize = 60.0;
+  static const double logoTextSize = 80.0;
+  static const double titleFontSize = 24.0;
+  static const double buttonFontSize = 18.0;
+  static const double textFieldFontSize = 14.0;
+  static const double warningFontSize = 14.0;
+
+  // Variables to store latitude and longitude
+  double? latitude;
+  double? longitude;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF71BAD1),
+      backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildAppLogo(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildTitle(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildGetLocationButton(context),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildAdditionalInfoTitle(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildCityField(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildAreaField(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildNeighborhoodField(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildDetailedLocationField(),
-              SizedBox(height: 20),
+              SizedBox(height: spacingSmall),
               _buildSubmitButton(context),
-              SizedBox(height: 40),
+              SizedBox(height: spacingMedium),
               _buildWarningText(),
               Spacer(),
               _buildBackButton(context),
@@ -45,14 +70,14 @@ class Location extends StatelessWidget {
       children: [
         Image.asset(
           'assets/logo.png',
-          width: 60,
-          height: 60,
+          width: logoSize,
+          height: logoSize,
         ),
         Spacer(),
         Image.asset(
           'assets/logoText.png',
-          width: 80,
-          height: 80,
+          width: logoTextSize,
+          height: logoTextSize,
         ),
       ],
     );
@@ -63,8 +88,8 @@ class Location extends StatelessWidget {
       'قم بتحديد الموقع بشكل تلقائي',
       style: TextStyle(
         color: Colors.black,
-        fontFamily: "Cairo",
-        fontSize: 24,
+        fontFamily: fontFamily,
+        fontSize: titleFontSize,
         fontWeight: FontWeight.normal,
       ),
     );
@@ -72,11 +97,66 @@ class Location extends StatelessWidget {
 
   Widget _buildGetLocationButton(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         print("Get Location button pressed!");
+
+        // Check if location services are enabled
+        bool isLocationServiceEnabled =
+            await Geolocator.isLocationServiceEnabled();
+        if (!isLocationServiceEnabled) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Please enable location services.')),
+          );
+          return;
+        }
+
+        // Check and request location permissions
+        LocationPermission permission = await Geolocator.checkPermission();
+        if (permission == LocationPermission.denied) {
+          permission = await Geolocator.requestPermission();
+          if (permission == LocationPermission.denied) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Location permissions are denied.')),
+            );
+            return;
+          }
+        }
+
+        if (permission == LocationPermission.deniedForever) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+                    'Location permissions are permanently denied. Please enable them in app settings.')),
+          );
+          return;
+        }
+
+        // Fetch the current location
+        try {
+          Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high,
+          );
+
+          // Store latitude and longitude
+          latitude = position.latitude;
+          longitude = position.longitude;
+
+          // Print the location
+          print("Latitude: $latitude, Longitude: $longitude");
+
+          // Show the location to the user (optional)
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Location: $latitude, $longitude')),
+          );
+        } catch (e) {
+          print("Error getting location: $e");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to get location.')),
+          );
+        }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF888888),
+        backgroundColor: buttonColor,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
@@ -86,8 +166,8 @@ class Location extends StatelessWidget {
         'تحديد الموقع',
         style: TextStyle(
           color: Colors.white,
-          fontFamily: "Cairo",
-          fontSize: 18,
+          fontFamily: fontFamily,
+          fontSize: buttonFontSize,
           fontWeight: FontWeight.normal,
         ),
       ),
@@ -99,8 +179,8 @@ class Location extends StatelessWidget {
       'معلومات اضافية',
       style: TextStyle(
         color: Colors.black,
-        fontFamily: "Cairo",
-        fontSize: 24,
+        fontFamily: fontFamily,
+        fontSize: titleFontSize,
         fontWeight: FontWeight.normal,
       ),
     );
@@ -123,10 +203,10 @@ class Location extends StatelessWidget {
       width: 350,
       height: 150,
       decoration: BoxDecoration(
-        color: Color(0xFFDDEEF9),
+        color: textFieldColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Color(0xFFC3E8FF),
+          color: borderColor,
           width: 1,
         ),
       ),
@@ -137,13 +217,13 @@ class Location extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           hintText: ' الموقع بالتفصيل',
-          hintStyle: TextStyle(color: Color(0xFF9E9E9E)),
+          hintStyle: TextStyle(color: hintTextColor),
           border: InputBorder.none,
         ),
         style: TextStyle(
-          color: Colors.black, // Changed to black for better visibility
-          fontFamily: "Cairo",
-          fontSize: 14,
+          color: Colors.black,
+          fontFamily: fontFamily,
+          fontSize: textFieldFontSize,
           fontWeight: FontWeight.normal,
         ),
       ),
@@ -155,10 +235,10 @@ class Location extends StatelessWidget {
       width: 350,
       height: 50,
       decoration: BoxDecoration(
-        color: Color(0xFFDDEEF9),
+        color: textFieldColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Color(0xFFC3E8FF),
+          color: borderColor,
           width: 1,
         ),
       ),
@@ -169,13 +249,13 @@ class Location extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           hintText: hintText,
-          hintStyle: TextStyle(color: Color(0xFF9E9E9E)),
+          hintStyle: TextStyle(color: hintTextColor),
           border: InputBorder.none,
         ),
         style: TextStyle(
-          color: Colors.black, // Changed to black for better visibility
-          fontFamily: "Cairo",
-          fontSize: 14,
+          color: Colors.black,
+          fontFamily: fontFamily,
+          fontSize: textFieldFontSize,
           fontWeight: FontWeight.normal,
         ),
       ),
@@ -185,10 +265,23 @@ class Location extends StatelessWidget {
   Widget _buildSubmitButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        // Print latitude and longitude when the submit button is pressed
+        if (latitude != null && longitude != null) {
+          print("Latitude: $latitude, Longitude: $longitude");
+        } else {
+          print("Location not fetched yet.");
+        }
+
+        // Navigate to the next screen
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => UpoladPhoto(),
+          ),
+        );
         print("Submit button pressed!");
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFFF6347),
+        backgroundColor: submitButtonColor,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 150),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
@@ -199,8 +292,8 @@ class Location extends StatelessWidget {
         'تأكيد',
         style: TextStyle(
           color: Colors.white,
-          fontFamily: "Cairo",
-          fontSize: 18,
+          fontFamily: fontFamily,
+          fontSize: buttonFontSize,
           fontWeight: FontWeight.normal,
         ),
       ),
@@ -212,36 +305,36 @@ class Location extends StatelessWidget {
       'احذر من لمس المخلفات أو الاقتراب منها كثيراً فهذا يعرضك للخطر',
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: Color(0XFF3A3A3A),
-        fontFamily: "Cairo",
-        fontSize: 14,
+        color: warningTextColor,
+        fontFamily: fontFamily,
+        fontSize: warningFontSize,
         fontWeight: FontWeight.normal,
       ),
     );
   }
-}
 
-Widget _buildBackButton(BuildContext context) {
-  return Center(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'رجوع',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Cairo",
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
+  Widget _buildBackButton(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'رجوع',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: fontFamily,
+              fontSize: warningFontSize,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-        ),
-        IconButton(
-          icon: Icon(Icons.arrow_right, color: Colors.white, size: 50),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    ),
-  );
+          IconButton(
+            icon: Icon(Icons.arrow_right, color: Colors.white, size: 50),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

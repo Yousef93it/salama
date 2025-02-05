@@ -7,7 +7,7 @@ class NewIssue extends StatefulWidget {
 }
 
 class _NewIssueState extends State<NewIssue> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   List<String> warWasteType = [
     'حدد نوع المخلفات',
@@ -32,6 +32,10 @@ class _NewIssueState extends State<NewIssue> {
     'Option 3'
   ];
   String selectedValueOfWarWasteZone = 'القرب من السكان';
+  String? type;
+  String? level;
+  String? zone;
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,11 @@ class _NewIssueState extends State<NewIssue> {
                 onChanged: (newValue) {
                   setState(() {
                     selectedValueOfWarWaste = newValue!;
+                    if (newValue == warWasteType[0]) {
+                      type = null;
+                    } else {
+                      type = newValue;
+                    }
                   });
                 },
               ),
@@ -64,6 +73,11 @@ class _NewIssueState extends State<NewIssue> {
                 onChanged: (newValue) {
                   setState(() {
                     selectedValueOfWarWasteDanger = newValue!;
+                    if (newValue == warWasteDanger[0]) {
+                      level = null;
+                    } else {
+                      level = newValue;
+                    }
                   });
                 },
               ),
@@ -74,6 +88,11 @@ class _NewIssueState extends State<NewIssue> {
                 onChanged: (newValue) {
                   setState(() {
                     selectedValueOfWarWasteZone = newValue!;
+                    if (newValue == warWasteZone[0]) {
+                      zone = null;
+                    } else {
+                      zone = newValue;
+                    }
                   });
                 },
               ),
@@ -181,6 +200,7 @@ class _NewIssueState extends State<NewIssue> {
         ),
       ),
       child: TextField(
+        controller: _descriptionController, // Assign the controller here
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         maxLines: null,
@@ -204,10 +224,37 @@ class _NewIssueState extends State<NewIssue> {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Location()),
-          );
+          if (type == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('يجب اختيار نوع المخلفات'),
+              ),
+            );
+            return;
+          } else if (level == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('يجب اختيار مستوى الخطورة'),
+              ),
+            );
+            return;
+          } else if (zone == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('يجب اختيار المنطقة'),
+              ),
+            );
+            return;
+          } else {
+            print(type);
+            print(level);
+            print(zone);
+            print(_descriptionController.text);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Location()),
+            );
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFFFF6347),
