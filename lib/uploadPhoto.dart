@@ -7,13 +7,14 @@ class UpoladPhoto extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0XFF71BAD1),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              _buildAppLogo(),
+              buildAppBar(),
+              // _buildAppLogo(),
               SizedBox(height: 20),
               headerText(),
               SizedBox(height: 20),
@@ -24,10 +25,10 @@ class UpoladPhoto extends StatelessWidget {
               _buildWarningSaveText(),
               SizedBox(height: 20),
               _buildSubmitButton(context),
-              SizedBox(height: 90),
+              SizedBox(height: 40),
               _buildWarningText(),
               Spacer(),
-              _buildBackButton(context),
+              //_buildBackButton(context),
             ],
           ),
         ),
@@ -35,6 +36,34 @@ class UpoladPhoto extends StatelessWidget {
     );
   }
 //.
+
+  Widget buildAppBar() {
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 0.0), // Adjust padding as needed
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 50,
+              height: 50,
+            ),
+            Spacer(),
+            Image.asset(
+              'assets/logoText.png',
+              width: 100,
+              height: 40,
+            ),
+          ],
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+          color: Colors.white), // Change back button color to white
+    );
+  }
 
   Widget _buildWarningHeaderText() {
     return Text(

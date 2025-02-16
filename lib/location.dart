@@ -12,7 +12,7 @@ class Location extends StatelessWidget {
   static const Color hintTextColor = Color(0xFF9E9E9E);
   static const Color warningTextColor = Color(0XFF3A3A3A);
   static const String fontFamily = "Cairo";
-  static const double horizontalPadding = 20.0;
+  static const double horizontalPadding = 0.0;
   static const double spacingSmall = 20.0;
   static const double spacingMedium = 40.0;
   static const double logoSize = 60.0;
@@ -37,7 +37,8 @@ class Location extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: spacingSmall),
-              _buildAppLogo(),
+              buildAppBar(),
+              //_buildAppLogo(),
               SizedBox(height: spacingSmall),
               _buildTitle(),
               SizedBox(height: spacingSmall),
@@ -57,7 +58,7 @@ class Location extends StatelessWidget {
               SizedBox(height: spacingMedium),
               _buildWarningText(),
               Spacer(),
-              _buildBackButton(context),
+              //_buildBackButton(context),
             ],
           ),
         ),
@@ -65,23 +66,49 @@ class Location extends StatelessWidget {
     );
   }
 
-  Widget _buildAppLogo() {
-    return Row(
-      children: [
-        Image.asset(
-          'assets/logo.png',
-          width: logoSize,
-          height: logoSize,
+  Widget buildAppBar() {
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 50,
+              height: 50,
+            ),
+            Spacer(),
+            Image.asset(
+              'assets/logoText.png',
+              width: 100,
+              height: 40,
+            ),
+          ],
         ),
-        Spacer(),
-        Image.asset(
-          'assets/logoText.png',
-          width: logoTextSize,
-          height: logoTextSize,
-        ),
-      ],
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(color: Colors.white),
     );
   }
+
+  // Widget _buildAppLogo() {
+  //   return Row(
+  //     children: [
+  //       Image.asset(
+  //         'assets/logo.png',
+  //         width: logoSize,
+  //         height: logoSize,
+  //       ),
+  //       Spacer(),
+  //       Image.asset(
+  //         'assets/logoText.png',
+  //         width: logoTextSize,
+  //         height: logoTextSize,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildTitle() {
     return Text(

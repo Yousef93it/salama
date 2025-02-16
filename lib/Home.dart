@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salama/LogIn.dart';
 import 'package:salama/ReportIssue.dart';
+import 'package:salama/settings.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,6 +15,65 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF71BAD1),
+      appBar: AppBar(
+        backgroundColor: Color(0XFF71BAD1),
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text('User Name'),
+              accountEmail: Text('user@example.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person),
+              ),
+              decoration: BoxDecoration(color: Color(0XFF71BAD1)),
+            ),
+            ListTile(
+              title: Text(
+                'الاعدادات',
+                style: TextStyle(
+                  color: Color(0XFF3A3A3A),
+                  fontFamily: "Cairo",
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'تسجيل الخروج',
+                style: TextStyle(
+                  color: Color(0XFF3A3A3A),
+                  fontFamily: "Cairo",
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                textDirection: TextDirection.rtl,
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogInPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

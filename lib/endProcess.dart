@@ -14,7 +14,7 @@ class EndProcess extends StatelessWidget {
   static const double warningTextSize = 24.0;
   static const double infoTextSize = 14.0;
   static const double buttonTextSize = 14.0;
-  static const double horizontalPadding = 20.0;
+  static const double horizontalPadding = 0.0;
   static const double spacingSmall = 20.0;
   static const double spacingMedium = 60.0;
   static const double spacingLarge = 80.0;
@@ -30,7 +30,7 @@ class EndProcess extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: spacingSmall),
-              _buildAppLogo(),
+              buildAppBar(),
               SizedBox(height: spacingMedium),
               _buildCheckMark(),
               SizedBox(height: spacingSmall),
@@ -43,6 +43,34 @@ class EndProcess extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildAppBar() {
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 0.0), // Adjust padding as needed
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 50,
+              height: 50,
+            ),
+            Spacer(),
+            Image.asset(
+              'assets/logoText.png',
+              width: 100,
+              height: 40,
+            ),
+          ],
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+          color: Colors.white), // Change back button color to white
     );
   }
 
